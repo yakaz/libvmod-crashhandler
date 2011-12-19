@@ -1,54 +1,51 @@
-============
-vmod_example
-============
+=================
+vmod_crashhandler
+=================
 
-----------------------
-Varnish Example Module
-----------------------
+---------------------
+Varnish Crash Handler
+---------------------
 
-:Author: Martin Blix Grydeland
-:Date: 2011-05-26
+:Author: Kristian Lyngstøl
+:Date: 2011-12-19
 :Version: 1.0
 :Manual section: 3
 
 SYNOPSIS
 ========
 
-import example;
+import crashhandler;
 
 DESCRIPTION
 ===========
 
-Example Varnish vmod demonstrating how to write an out-of-tree Varnish vmod.
+Varnish Module that catches segfaults (SIGSEGV) and issues the regular
+panic code to get a back trace.
 
-Implements the traditional Hello World as a vmod.
+Also includes a function to trigger a segfault forcibly. Use at your own
+peril.
 
 FUNCTIONS
 =========
 
-hello
+crash
 -----
 
 Prototype
         ::
 
-                hello(STRING S)
+                crash()
 Return value
-	STRING
+	VOID
 Description
-	Returns "Hello, " prepended to S
+	Raises a SIGSEGV which in turn is caught.
 Example
         ::
 
-                set resp.http.hello = example.hello("World");
+                crashhandler.crash();
 
 INSTALLATION
 ============
-
-This is an example skeleton for developing out-of-tree Varnish
-vmods. It implements the "Hello, World!" as a vmod callback. Not
-particularly useful in good hello world tradition, but demonstrates how
-to get the glue around a vmod working.
 
 The source tree is based on autotools to configure the building, and
 does also have the necessary bits in place to do functional unit tests
@@ -74,23 +71,23 @@ Make targets:
 
 In your VCL you could then use this vmod along the following lines::
         
-        import example;
+        import crashhandler;
 
-        sub vcl_deliver {
-                # This sets resp.http.hello to "Hello, World"
-                set resp.http.hello = example.hello("World");
+        sub vcl_recv {
+                if (req.http.x-crash) {
+                        crashhandler.crash();
+                }
         }
 
 HISTORY
 =======
 
-This manual page was released as part of the libvmod-example package,
-demonstrating how to create an out-of-tree Varnish vmod.
+1.0: Initial version with segfault handler and crash()
 
 COPYRIGHT
 =========
 
 This document is licensed under the same license as the
-libvmod-example project. See LICENSE for details.
+libvmod-crashhandler project. See LICENSE for details.
 
 * Copyright (c) 2011 Varnish Software
