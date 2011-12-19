@@ -69,6 +69,8 @@ Make targets:
 * make install - installs your vmod in `VMODDIR`
 * make check - runs the unit tests in ``src/tests/*.vtc``
 
+Note that some of the test cases /will/ and should fail at the time being.
+
 In your VCL you could then use this vmod along the following lines::
         
         import crashhandler;
@@ -83,6 +85,13 @@ HISTORY
 =======
 
 1.0: Initial version with segfault handler and crash()
+
+BUGS
+====
+
+The test case test01 will fail. This is because it issues crash(); which
+does indeed crash. The test case should be designed to detect lack of
+crashing, but alas, it does not accomplish this yet.
 
 COPYRIGHT
 =========

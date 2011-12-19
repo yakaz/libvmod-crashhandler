@@ -9,14 +9,13 @@ varnish v1 -vcl+backend {
 	import crashhandler from "${vmod_topbuild}/src/.libs/libvmod_crashhandler.so";
 
 	sub vcl_deliver {
-		set resp.http.hello = crashhandler.hello("World");
+		crashhandler.crash();
 	}
 } -start
 
 client c1 {
 	txreq -url "/"
 	rxresp
-	expect resp.http.hello == "Hello, World"
 }
 
 client c1 -run
