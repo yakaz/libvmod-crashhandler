@@ -1,3 +1,3 @@
 Module crashhandler
 Init init_function
-Function STRING hello(STRING)
+Function VOID crash()
