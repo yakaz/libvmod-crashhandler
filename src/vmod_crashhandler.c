@@ -19,12 +19,12 @@ vmod_ch_sighandler(int i){
 int
 init_function(struct vmod_priv *priv, const struct VCL_conf *conf)
 {
-	signal(11,vmod_ch_sighandler);
+	signal(SIGSEGV,vmod_ch_sighandler);
 	return (0);
 }
 
 void
 vmod_crash(struct sess * sp)
 {
-	raise(11);
+	raise(SIGSEGV);
 }
