@@ -27,7 +27,8 @@ cd ../..
 
 echo 'Running autogen.sh'
 ./autogen.sh
-export LOCAL_CONFIGURE_FLAGS="'VARNISHSRC=debian/varnish-sources/$folder'"
+export LOCAL_CONFIGURE_FLAGS="$LOCAL_CONFIGURE_FLAGS 'VARNISHSRC=debian/varnish-sources/$folder'"
+export LOCAL_CONFIGURE_FLAGS="$LOCAL_CONFIGURE_FLAGS 'VMODDIR=/usr/lib/varnish/vmods'"
 
 echo 'Building package...'
 dpkg-buildpackage -b -us -uc -tc
