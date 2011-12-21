@@ -22,11 +22,8 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	dh_auto_install -a
-	@ # Remove .la files
-	@ # (See http://wiki.debian.org/ReleaseGoals/LAFileRemoval)
-	find $(CURDIR)/debian/ -name \*.la -delete
-	@ # Nuke the static libs too
-	find $(CURDIR)/debian -name \*.a -delete
 
+
+override_dh_usrlocal:
 
 .PHONY: override_dh_auto_configure override_dh_auto_test override_dh_auto_install
