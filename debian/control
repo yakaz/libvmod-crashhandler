@@ -1,0 +1,15 @@
+Source: varnish-vmod-crashhandler
+Section: web
+Priority: optional
+Maintainer: Olivier Favre <olivier@yakaz.com>
+Uploaders: Olivier Favre <olivier@yakaz.com>
+Build-Depends: debhelper (>= 7.0.50~), libvarnishapi-dev (= ${VARNISH_VERSION})
+Standards-Version: 3.9.1
+
+Package: varnish-vmod-crashhandler
+Section: web
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libvarnishapi1 (= ${VARNISH_VERSION})
+Description: Yakaz Logger module for Varnish
+ Varnish Module that catches segfaults (SIGSEGV) and issues the regular panic code to get a back trace.
+ Also includes a function to trigger a segfault forcibly. Use at your own peril.

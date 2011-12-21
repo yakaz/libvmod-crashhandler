@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+export DH_VERBOSE=1
+
+# Use Debug version as it's a rather temporary solution
+# and don't strip symbols for easier debugging process.
+export DEB_BUILD_OPTIONS=nostrip
+
+
+# Main build rule, leave everything to debhelper
+%:
+	dh $@
+
+# Disable automated build tests
+override_dh_auto_test:
+
+# Override to add local configure flags
+override_dh_auto_configure:
+	( dpkg-buildflags --export=configure >/dev/null 2>&1 && dpkg-buildflags --export=configure || dpkg-buildflags --export=sh | sed -r -e 's/^export //g' | tr '\n' ' ' ) \
+		| xargs dh_auto_configure -- $(LOCAL_CONFIGURE_FLAGS) \
+
+
+override_dh_auto_install:
+	dh_auto_install -a
+	@ # Remove .la files
+	@ # (See http://wiki.debian.org/ReleaseGoals/LAFileRemoval)
+	find $(CURDIR)/debian/ -name \*.la -delete
+	@ # Nuke the static libs too
+	find $(CURDIR)/debian -name \*.a -delete
+
+
+.PHONY: override_dh_auto_configure override_dh_auto_test override_dh_auto_install
