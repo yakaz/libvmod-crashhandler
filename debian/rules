@@ -24,6 +24,4 @@ override_dh_auto_install:
 	dh_auto_install -a
 
 
-override_dh_usrlocal:
-
 .PHONY: override_dh_auto_configure override_dh_auto_test override_dh_auto_install

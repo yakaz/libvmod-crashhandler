@@ -1,3 +1,10 @@
+varnish-vmod-crashhandler (1.0.0-2) experimental; urgency=low
+
+  * Previous package was not created using the right environment.
+  * Re-enabled dh_usrlocal command, as it was indeed a good test...
+
+ -- Olivier Favre <olivier@yakaz.com>  Thu, 22 Dec 2011 12:08:23 +0100
+
 varnish-vmod-crashhandler (1.0.0-1) experimental; urgency=low
 
   * Initial release.
